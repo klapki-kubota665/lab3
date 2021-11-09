@@ -4,8 +4,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class MainWindow extends JFrame {
+    private HashMap<String, String> users;
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -24,43 +28,63 @@ public class MainWindow extends JFrame {
     public MainWindow(String title) throws HeadlessException {
         super(title);
         buildFrame();
-        JPanel jPanel = new JPanel();
-        jPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(jPanel);
-        jPanel.setLayout(null);
-        jPanel.setBackground(Color.GREEN);
+        users = new HashMap<>();
+        users.put("Kowalski", "Jan" );
+        users.put("Wisniewski", "Michal");
+        users.put("Lewandowski","Robert");
+        users.put( "Zielinski","Piotr");
     }
     protected void buildFrame() {
 
+
         setBounds(100, 100, 450, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //program ma się zakończyć po zamknięciu tego okna
-
+        //setSize(648, 478);
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
+        JPanel jPanel = new JPanel(null);
+        //jPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(jPanel);
 
-        JMenu mnFile = new JMenu("File");
-        menuBar.add(mnFile);
+        jPanel.setBackground(Color.GRAY);
 
-        JMenuItem mnitLogin = new JMenuItem("Login");
-        mnitLogin.addActionListener(new ActionListener() {
+        JButton okButton = new JButton("OK");
+        JButton cancelButton = new JButton("CANCEL");
+        jPanel.add(okButton);
+        jPanel.add(cancelButton);
+        okButton.setBounds(100, 200, 100, 40);
+        cancelButton.setBounds(250, 200, 100, 40);
+        JLabel label = new JLabel("Login");
+        JLabel label2 = new JLabel("Password");
+        JTextField loginField = new JTextField();
+        loginField.setBounds(200, 50, 100,40);
+        jPanel.add(loginField);
+        label.setLabelFor(loginField);
+        JPasswordField passwordField = new JPasswordField();
+        passwordField.setBounds(200, 100, 100,40);
+        label2.setLabelFor(passwordField);
+        jPanel.add(passwordField);
+        //passwordField.setActionCommand();
+        //passwordField.getPassword();
+        okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              ;
+                if(users.containsKey(loginField.getText()))
+                    if(users.get(loginField.getText()).equals(passwordField.getText()))
+                        jPanel.setBackground(Color.GREEN);
+                    else{
+                    jPanel.setBackground(Color.ORANGE);
+                }
             }
         });
-        mnitLogin.setMnemonic(KeyEvent.VK_S);
-        mnFile.add(mnitLogin);
-
-        JMenuItem mnitCancel = new JMenuItem("Cancel");
-        mnitCancel.addActionListener(e -> {
-            ;
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                passwordField.setText("");
+                loginField.setText("");
+            }
         });
-        mnitCancel.setMnemonic(KeyEvent.VK_C);
-        mnFile.add(mnitCancel);
-    }
 
-    /*private void doLogin() {
-        if()
-    }*/
+}
 }
 
