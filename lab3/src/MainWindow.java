@@ -39,11 +39,9 @@ public class MainWindow extends JFrame {
 
         setBounds(100, 100, 450, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //program ma się zakończyć po zamknięciu tego okna
-        //setSize(648, 478);
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         JPanel jPanel = new JPanel(null);
-        //jPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(jPanel);
 
         jPanel.setBackground(Color.GRAY);
@@ -64,8 +62,8 @@ public class MainWindow extends JFrame {
         passwordField.setBounds(200, 100, 100,40);
         label2.setLabelFor(passwordField);
         jPanel.add(passwordField);
-        //passwordField.setActionCommand();
-        //passwordField.getPassword();
+        jPanel.add(label);
+        jPanel.add(label2);
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
